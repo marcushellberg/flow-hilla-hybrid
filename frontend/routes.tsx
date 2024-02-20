@@ -1,10 +1,10 @@
 import {lazy} from 'react';
 import {createBrowserRouter, RouteObject} from 'react-router-dom';
 import {serverSideRoutes} from "Frontend/generated/flow/Flow";
-import HillaView from "Frontend/views/HillaView";
+import ContactsView from "Frontend/views/ContactsView";
 
 export const routes = [
-    {path: '/', element: <HillaView/>, handle: {title: 'HillaView View'}},
+    {path: '/', element: <ContactsView/>, handle: {title: 'HillaView View'}},
     ...serverSideRoutes
 ] as RouteObject[];
 

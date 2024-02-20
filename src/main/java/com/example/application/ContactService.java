@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import dev.hilla.BrowserCallable;
 
+
+// hilla snippet start
 @AnonymousAllowed
 @BrowserCallable
+//flow snippet start
 @Service
 public class ContactService {
 
@@ -22,3 +25,4 @@ public class ContactService {
     }
 
 }
+// snippet end

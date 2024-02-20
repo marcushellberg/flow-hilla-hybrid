@@ -1,22 +1,27 @@
-import { Grid } from "@hilla/react-components/Grid";
-import { GridColumn } from "@hilla/react-components/GridColumn";
-import { DatePicker } from "@hilla/react-components/DatePicker";
-import {signal} from "@preact/signals-react";
+import {Grid} from "@hilla/react-components/Grid";
+import {GridColumn} from "@hilla/react-components/GridColumn";
+import {DatePicker} from "@hilla/react-components/DatePicker";
+import {signal, useSignal} from "@preact/signals-react";
 import {useEffect} from "react";
 import {ContactService} from "Frontend/generated/endpoints";
 import Contact from "Frontend/generated/com/example/application/Contact";
 import {Notification} from "@vaadin/notification";
 
-const contacts = signal<Contact[]>([]);
 
-export default function HillaView() {
+// snippet start
+export default function ContactsView() {
+  const contacts = useSignal<Contact[]>([]);
+
   useEffect(() => {
-    ContactService.getContacts().then(c => contacts.value = c);
+    ContactService.getContacts().then(newContacts =>
+      contacts.value = newContacts
+    );
   }, []);
 
   return (
     <div className="flex flex-col p-m gap-s">
       <h1 className="text-2xl">Contacts</h1>
+
       <Grid items={contacts.value}>
         <GridColumn autoWidth>
           {({item}) => (
@@ -24,14 +29,15 @@ export default function HillaView() {
           )}
         </GridColumn>
         <GridColumn path="name" autoWidth/>
-        <GridColumn path="jobTitle" autoWidth />
+        <GridColumn path="jobTitle" autoWidth/>
         <GridColumn path="lastContacted" autoWidth>
           {({item}) => (
             <DatePicker value={item.lastContacted} onChange={e =>
-              Notification.show(`Updated last contacted date for ${item.name} to ${e.target.value}`)}/>
+              Notification.show(`${item.name} updated: ${e.target.value}`)}/>
           )}
         </GridColumn>
       </Grid>
     </div>
   );
 }
+// snippet end
