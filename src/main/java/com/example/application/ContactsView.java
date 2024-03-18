@@ -17,15 +17,15 @@ public class ContactsView extends VerticalLayout {
         grid.setItems(contactService.getContacts());
 
         grid.addComponentColumn(contact ->
-                new Image(contact.pictureUrl(), contact.name())).setAutoWidth(true);
+                new Image(contact.getPictureUrl(), contact.getName())).setAutoWidth(true);
 
-        grid.addColumn(Contact::name).setHeader("Name").setAutoWidth(true);
-        grid.addColumn(Contact::company).setHeader("Company").setAutoWidth(true);
-        grid.addColumn(Contact::jobTitle).setHeader("Job Title").setAutoWidth(true);
+        grid.addColumn(Contact::getName).setHeader("Name").setAutoWidth(true);
+        grid.addColumn(Contact::getCompany).setHeader("Company").setAutoWidth(true);
+        grid.addColumn(Contact::getJobTitle).setHeader("Job Title").setAutoWidth(true);
 
         grid.addComponentColumn(contact ->
-                new DatePicker(contact.lastContacted(), e ->
-                    Notification.show( contact.name() + " updated: " + e.getValue())
+                new DatePicker(contact.getLastContacted(), e ->
+                    Notification.show( contact.getName() + " updated: " + e.getValue())
         )).setHeader("Last Contacted").setAutoWidth(true);
 
         add(new H1("Leads"), grid);
